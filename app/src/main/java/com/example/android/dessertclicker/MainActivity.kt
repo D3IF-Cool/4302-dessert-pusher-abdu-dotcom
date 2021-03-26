@@ -35,32 +35,9 @@ class MainActivity : AppCompatActivity() {
 
     // Contains all the views
     private lateinit var binding: ActivityMainBinding
+    private lateinit var dessertTimer: DessertTimer
 
     /** Dessert Data **/
-    override fun onStart() {
-        super.onStart()
-        Timber.i( "onStart Called")
-    }
-    override fun onResume() {
-        super.onResume()
-        Timber.i("onResume Called")
-    }
-    override fun onPause() {
-        super.onPause()
-        Timber.i("onPause Called")
-    }
-    override fun onStop() {
-        super.onStop()
-        Timber.i("onStop Called")
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        Timber.i("onDestroy Called")
-    }
-    override fun onRestart() {
-        super.onRestart()
-        Timber.i("onRestart Called")
-    }
     /**
      * Simple data class that represents a dessert. Includes the resource id integer associated with
      * the image, the price it's sold for, and the startProductionAmount, which determines when
@@ -95,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         binding.dessertButton.setOnClickListener {
             onDessertClicked()
         }
+        dessertTimer = DessertTimer()
 
         // Set the TextViews to the right values
         binding.revenue = revenue
@@ -169,5 +147,34 @@ class MainActivity : AppCompatActivity() {
             R.id.shareMenuButton -> onShare()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+//    Text Logging
+    override fun onStart() {
+        super.onStart()
+        Timber.i( "onStart Called")
+        dessertTimer.startTimer()
+    }
+    override fun onStop() {
+        super.onStop()
+        Timber.i("onStop Called")
+        dessertTimer.stopTimer()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Timber.i("onResume Called")
+    }
+    override fun onPause() {
+        super.onPause()
+        Timber.i("onPause Called")
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Timber.i("onDestroy Called")
+    }
+    override fun onRestart() {
+        super.onRestart()
+        Timber.i("onRestart Called")
     }
 }
